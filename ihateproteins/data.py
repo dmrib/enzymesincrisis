@@ -64,6 +64,36 @@ def load_page(path):
     with open(path) as file:
         return BeautifulSoup(file, 'html.parser')
 
+def load_from_parsed(path):
+    ''' Loads data from an already pre processed source file.
+
+    Args:
+        path (str): Path to source file.
+    Returns:
+        List of tuples pairing protein name(0) and history(1).
+    '''
+
+    with open(path) as source:
+        data = []
+        for line in source:
+            data_point = line.rstrip('\n').split(',')
+            data.append(tuple(data_point))
+    print(data)
+    return data
+
+def create_parsed_data_file(data):
+    ''' Creates csv-like file containing parsed data.
+
+    Args:
+        data (tuple): Tuple containing protein name(0) and history(1).
+    Returns:
+        None.
+    '''
+
+    with open('../data/parsed_data.csv', mode='w', encoding='utf-8') as file:
+        for data_point in data:
+            file.write(data_point[0] + ', ' + data_point[1] + '\n')
+
 
 class Protein():
     ''' An IUBMB Enzyme nomenclature. '''
@@ -74,5 +104,4 @@ class Protein():
 
 
 if __name__ == '__main__':
-    data = scrape_pages()
-    print(data)
+    data = load_from_parsed(os.path.join(os.getcwd(), '../data/parsed_data.csv'))
