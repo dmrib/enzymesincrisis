@@ -76,9 +76,8 @@ def load_from_parsed(path):
     with open(path) as source:
         data = []
         for line in source:
-            data_point = line.rstrip('\n').split(',')
+            data_point = line.rstrip('\n').split(',', 1)
             data.append(tuple(data_point))
-    print(data)
     return data
 
 def create_parsed_data_file(data):
@@ -105,3 +104,4 @@ class Protein():
 
 if __name__ == '__main__':
     data = load_from_parsed(os.path.join(os.getcwd(), '../data/parsed_data.csv'))
+    parse_events(data)
