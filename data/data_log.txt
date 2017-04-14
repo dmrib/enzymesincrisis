@@ -1,26 +1,34 @@
-Fix missing center tag at 1.3.98.2
-Fix missing center tag at 1.4.1.22
-Fix missing center tag at 1.6.7.1
-Fix missing center tag at 1.6.7.2
-Fix missing center tag at 1.6.7.3
-Fix missing center tag at 3.4.22.21
-Fix missing center tag at 3.4.24.10
-Fix missing center tag at 3.1.2.9
-Fix missing center tag at 3.2.3.1
-Fix missing center tag at 3.4.19.4
-Fix missing center tag at 3.4.21.23
-Fix missing center tag at 3.4.21.52
-Fix missing center tag at 5.4.99.10
+Fix missing center tag at 1.3.98.2 at webpage.
+Fix missing center tag at 1.4.1.22 at webpage.
+Fix missing center tag at 1.6.7.1 at webpage.
+Fix missing center tag at 1.6.7.2 at webpage.
+Fix missing center tag at 1.6.7.3 at webpage.
+Fix missing center tag at 3.4.22.21 at webpage.
+Fix missing center tag at 3.4.24.10 at webpage.
+Fix missing center tag at 3.1.2.9 at webpage.
+Fix missing center tag at 3.2.3.1 at webpage.
+Fix missing center tag at 3.4.19.4 at webpage.
+Fix missing center tag at 3.4.21.23 at webpage.
+Fix missing center tag at 3.4.21.52 at webpage.
+Fix missing center tag at 5.4.99.10 at webpage.
 
 
 
-Fix broken p tag at 3.4.21.24
-Fix broken p tag at 3.4.22.12
-Fix broken p tag at 3.4.24.9
-Fix broken p tag at 2.1.1.30
-Fix broken p tag at 2.4.1.6
-Fix broken p tag at 3.1.4.29
-Fix broken p tag at 3.2.1.12
-Fix broken p tag at 3.5.99.3
-Fix broken p tag at 4.2.1.23
-Fix broken p tag at 4.2.1.64
+Fix broken p tag at 3.4.21.24 at webpage.
+Fix broken p tag at 3.4.22.12 at webpage.
+Fix broken p tag at 3.4.24.9 at webpage.
+Fix broken p tag at 2.1.1.30 at webpage.
+Fix broken p tag at 2.4.1.6 at webpage.
+Fix broken p tag at 3.1.4.29 at webpage.
+Fix broken p tag at 3.2.1.12 at webpage.
+Fix broken p tag at 3.5.99.3 at webpage.
+Fix broken p tag at 4.2.1.23 at webpage.
+Fix broken p tag at 4.2.1.64 at webpage.
+
+
+
+Removed crossed data from history at datalog (everything inside parenthesis).
+
+
+
+Removed EC prefix from enzyme name at datalog.
