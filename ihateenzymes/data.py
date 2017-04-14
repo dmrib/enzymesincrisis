@@ -77,16 +77,16 @@ def create_parsed_data_file(data):
         for data_point in data:
             file.write(data_point[0] + ', ' + data_point[1] + '\n')
 
-def load_from_parsed(path):
+def load_from_parsed():
     ''' Loads data from an already pre processed source file.
 
     Args:
-        path (str): Path to source file.
+        None.
     Returns:
         List of tuples pairing protein name(0) and history(1).
     '''
 
-    with open(path) as source:
+    with open('../data/parsed_data.csv', mode='r', encoding='utf-8') as source:
         data = []
         for line in source:
             data_point = line.rstrip('\n').split(',', 1)
@@ -101,7 +101,7 @@ def create_events_file(dataset):
     Returns:
         None.
     '''
-    
+
     with open('../data/events.csv', mode='w', encoding='utf-8') as events_file:
         for datum in dataset:
             history = datum[1].split(' ')
@@ -112,6 +112,36 @@ def create_events_file(dataset):
                                       + history[position+1][:-1]
                                       + '\n')
 
+def load_events():
+    ''' Read events file and returns in proper format.
+
+    Args:
+        None.
+    Returns:
+        entries (dict): Dictionary with enzyme name as key and tuple of
+                        events[0]/year[1] as value.
+    '''
+
+    entries = {}
+    with open('../data/events.csv', mode='r', encoding='utf-8') as events_file:
+        for entry in events_file:
+            ignore, enzyme, event, year = entry.split()
+            if enzyme not in entries:
+                entries[enzyme] = []
+                entries[enzyme].append((event, year))
+            else:
+                entries[enzyme].append((event, year))
+
+    return entries
+
+
+
 if __name__ == '__main__':
-    data = load_from_parsed(os.path.join(os.getcwd(), '../data/parsed_data.csv'))
+    data = load_from_parsed()
     create_events_file(data)
+    data = load_events()
+    for item in data:
+        print(item + ':')
+        for event in data[item]:
+            print('   ' + event[0] + '  ' + event[1])
+        print('\n')
