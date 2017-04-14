@@ -64,6 +64,19 @@ def load_page(path):
     with open(path) as file:
         return BeautifulSoup(file, 'html.parser')
 
+def create_parsed_data_file(data):
+    ''' Creates csv-like file containing parsed data.
+
+    Args:
+        data (tuple): Tuple containing protein name(0) and history(1).
+    Returns:
+        None.
+    '''
+
+    with open('../data/parsed_data.csv', mode='w', encoding='utf-8') as file:
+        for data_point in data:
+            file.write(data_point[0] + ', ' + data_point[1] + '\n')
+
 def load_from_parsed(path):
     ''' Loads data from an already pre processed source file.
 
@@ -80,28 +93,25 @@ def load_from_parsed(path):
             data.append(tuple(data_point))
     return data
 
-def create_parsed_data_file(data):
-    ''' Creates csv-like file containing parsed data.
+def create_events_file(dataset):
+    ''' Create events file from dataset list.
 
     Args:
-        data (tuple): Tuple containing protein name(0) and history(1).
+        dataset (list): List pairing enzyme name and her history.
     Returns:
         None.
     '''
-
-    with open('../data/parsed_data.csv', mode='w', encoding='utf-8') as file:
-        for data_point in data:
-            file.write(data_point[0] + ', ' + data_point[1] + '\n')
-
-
-class Protein():
-    ''' An IUBMB Enzyme nomenclature. '''
-
-    def __init__(self, name, history):
-        self.name = name
-        self.history = history
-
+    
+    with open('../data/events.csv', mode='w', encoding='utf-8') as events_file:
+        for datum in dataset:
+            history = datum[1].split(' ')
+            for position, word in enumerate(history):
+                if word.endswith('ed'):
+                    events_file.write(datum[0] + ' '
+                                      + word + ' '
+                                      + history[position+1][:-1]
+                                      + '\n')
 
 if __name__ == '__main__':
     data = load_from_parsed(os.path.join(os.getcwd(), '../data/parsed_data.csv'))
-    parse_events(data)
+    create_events_file(data)
