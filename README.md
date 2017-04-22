@@ -1,2 +1,2 @@
-# ihateenzymes
-Data visualization of some god forsaken enzymes.
+# enzymes-in-crisis
+Data visualization on enzyme nomenclature changes over time.
