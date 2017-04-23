@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Visavail.js Example: Custom Categories</title>
+    <title>EC Number Visualization</title>
 
     <!-- Visavail.js style -->
     <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
@@ -24,9 +24,9 @@
 
 <body>
 
-<h1>Visavail.js Custom Categories Example</h1>
-<p>This example demonstrates the use of <a href="http://www.github.com/flrs/visavail" target="_blank">Visavail.js</a>
-   for displaying custom categories.</p>
+<h1>EC Number Visualization</h1>
+<!-- <p>This example demonstrates the use of <a href="http://www.github.com/flrs/visavail" target="_blank">Visavail.js</a>
+   for displaying custom categories.</p> -->
 
 <p id="example"><!-- Visavail.js chart will be placed here --></p>
 
@@ -39,13 +39,18 @@
 <script type="text/javascript">
     var dataset = [{
         "measure": "Fat Bike",
+        "interval_s": 60*60*24*365,
         "categories": {
-            "Kim": { "color": "#377eb8" },
-            "Bert": { "color": "#ff7f00" },
-            "Zoe": { "color": "purple" },
+            "Created 2002": { "color": "#377eb8" },
+            "Modified 2006": { "color": "#ff7f00" },
+            "Modified 2008": { "color": "#fa1c00" },
+            "Deleted 2010": { "color": "white" },
         },
         "data": [
-            ["2006-01-01", "Kim", "2017-01-01"]
+            ["2002-01-01", "Created 2002"],
+            ["2006-01-01", "Modified 2006"],
+            ["2008-01-01", "Modified 2008"],
+            ["2010-01-01", "Deleted 2010"]
         ]
     }];
 </script>
