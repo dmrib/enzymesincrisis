@@ -1,7 +1,8 @@
 from bs4 import BeautifulSoup
 import glob2
 import os
-
+import collections
+import json
 
 
 def create_pages_list():
@@ -77,6 +78,31 @@ def create_parsed_data_file(data):
         for data_point in data:
             file.write(data_point[0] + ', ' + data_point[1] + '\n')
 
+def create_json_data_file(data):
+    ''' Creates json-like file containing parsed data.
+
+    Args:
+        data (dict): Ordered Dictionary with enzyme name as key and tuple of
+                        events[0]/year[1] as value.
+    Returns:
+        None.
+    '''
+    ec_list = []
+    for item in data:
+        colors = ["red","black", "blue", "yellow", "purple", "gray", "green", "white"]
+        ec_dict = collections.OrderedDict()
+        ec_dict["measure"] = item
+        ec_dict["interval_s"] = 60*60*24*365
+        ec_dict["categories"] = {}
+        ec_dict["data"] = []
+        for index, event in enumerate(data[item]):
+            #print('   ' + event[0] + '  ' + event[1])
+            ec_dict["categories"][str(index) + ' - ' + event[0]] = {"color" : colors[index]}
+            ec_dict["data"].append([event[1]+"-01-01", event[0] + '  ' + event[1]])
+        ec_list.append(ec_dict)
+    with open('../enzymes/static/parsed_json.json', mode='w', encoding='utf-8') as file:
+        json.dump(ec_list, file, indent=4)
+
 def load_from_parsed():
     ''' Loads data from an already pre processed source file.
 
@@ -118,11 +144,11 @@ def load_events():
     Args:
         None.
     Returns:
-        entries (dict): Dictionary with enzyme name as key and tuple of
+        entries (dict): Ordered Dictionary with enzyme name as key and tuple of
                         events[0]/year[1] as value.
     '''
 
-    entries = {}
+    entries = collections.OrderedDict()
     with open('../data/events.csv', mode='r', encoding='utf-8') as events_file:
         for entry in events_file:
             ignore, enzyme, event, year = entry.split()
@@ -140,8 +166,9 @@ if __name__ == '__main__':
     data = load_from_parsed()
     create_events_file(data)
     data = load_events()
-    for item in data:
-        print(item + ':')
-        for event in data[item]:
-            print('   ' + event[0] + '  ' + event[1])
-        print('\n')
+    # for item in data:
+    #     print(item + ':')
+    #     for event in data[item]:
+    #         print('   ' + event[0] + '  ' + event[1])
+    #     print('\n')
+    create_json_data_file(data)
