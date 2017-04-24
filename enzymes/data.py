@@ -95,10 +95,17 @@ def create_json_data_file(data):
         ec_dict["interval_s"] = 60*60*24*365
         ec_dict["categories"] = {}
         ec_dict["data"] = []
+        stillExists = True
+        lastColor = 0
         for index, event in enumerate(data[item]):
             #print('   ' + event[0] + '  ' + event[1])
             ec_dict["categories"][str(event[0] + '  ' + event[1])] = {"color" : colors[index]}
             ec_dict["data"].append([event[1]+"-01-01", event[0] + '  ' + event[1]])
+            if event[0]=="deleted":
+                stillExists=False
+            lastColor = event[0] + '  ' + event[1]
+        if stillExists:
+            ec_dict["data"].append(["2017-01-01", lastColor])
         ec_list.append(ec_dict)
     with open('../enzymes/static/parsed_json.json', mode='w', encoding='utf-8') as file:
         json.dump(ec_list, file, indent=4)
