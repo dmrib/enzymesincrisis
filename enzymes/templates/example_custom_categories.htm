@@ -37,22 +37,100 @@
 </script>
 <script src="{{ url_for('static', filename='d3.min.js') }}" charset="utf-8"></script>
 <script type="text/javascript">
-    var dataset = [{
-        "measure": "Fat Bike",
-        "interval_s": 60*60*24*365,
-        "categories": {
-            "Created 2002": { "color": "#377eb8" },
-            "Modified 2006": { "color": "#ff7f00" },
-            "Modified 2008": { "color": "#fa1c00" },
-            "Deleted 2010": { "color": "white" },
+    var dataset = [
+        {
+            "measure": "1.1.1.1",
+            "interval_s": 31536000,
+            "categories": {
+                "created  1961": {
+                    "color": "red"
+                }
+            },
+            "data": [
+                [
+                    "1961-01-01",
+                    "created  1961"
+                ]
+            ]
         },
-        "data": [
-            ["2002-01-01", "Created 2002"],
-            ["2006-01-01", "Modified 2006"],
-            ["2008-01-01", "Modified 2008"],
-            ["2010-01-01", "Deleted 2010"]
-        ]
-    }];
+        {
+            "measure": "1.1.1.10",
+            "interval_s": 31536000,
+            "categories": {
+                "created  1961": {
+                    "color": "red"
+                }
+            },
+            "data": [
+                [
+                    "1961-01-01",
+                    "created  1961"
+                ]
+            ]
+        },
+        {
+            "measure": "1.1.1.100",
+            "interval_s": 31536000,
+            "categories": {
+                "created  1972": {
+                    "color": "red"
+                },
+                "modified  1976": {
+                    "color": "black"
+                }
+            },
+            "data": [
+                [
+                    "1972-01-01",
+                    "created  1972"
+                ],
+                [
+                    "1976-01-01",
+                    "modified  1976"
+                ]
+            ]
+        },
+        {
+            "measure": "1.1.1.101",
+            "interval_s": 31536000,
+            "categories": {
+                "created  1972": {
+                    "color": "red"
+                },
+                "modified  1976": {
+                    "color": "black"
+                }
+            },
+            "data": [
+                [
+                    "1972-01-01",
+                    "created  1972"
+                ],
+                [
+                    "1976-01-01",
+                    "modified  1976"
+                ]
+            ]
+        },
+        {
+            "measure": "1.14.13.102",
+            "interval_s": 31536000,
+            "categories": {
+                "created  2007": {
+                    "color": "black"
+                }
+            },
+            "data": [
+                [
+                    "2007-01-01",
+                    "created  2007"
+                ],
+                [
+                    "2007-01-01",
+                    "created  2007"
+                ]
+            ]
+        }];
 </script>
 <script src="{{ url_for('static', filename='visavail.js') }}"></script>
 

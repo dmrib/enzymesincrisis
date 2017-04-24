@@ -97,7 +97,7 @@ def create_json_data_file(data):
         ec_dict["data"] = []
         for index, event in enumerate(data[item]):
             #print('   ' + event[0] + '  ' + event[1])
-            ec_dict["categories"][str(index) + ' - ' + event[0]] = {"color" : colors[index]}
+            ec_dict["categories"][str(event[0] + '  ' + event[1])] = {"color" : colors[index]}
             ec_dict["data"].append([event[1]+"-01-01", event[0] + '  ' + event[1]])
         ec_list.append(ec_dict)
     with open('../enzymes/static/parsed_json.json', mode='w', encoding='utf-8') as file:
