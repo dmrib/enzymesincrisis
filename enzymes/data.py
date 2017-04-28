@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import collections
 import glob2
 import os
 
@@ -122,7 +123,7 @@ def load_events():
                         events[0]/year[1] as value.
     '''
 
-    entries = {}
+    entries = collections.OrderedDict()
     with open('../data/events.csv', mode='r', encoding='utf-8') as events_file:
         for entry in events_file:
             ignore, enzyme, event, year = entry.split()
@@ -137,11 +138,10 @@ def load_events():
 
 
 if __name__ == '__main__':
-    data = load_from_parsed()
-    create_events_file(data)
     data = load_events()
-    for item in data:
-        print(item + ':')
-        for event in data[item]:
-            print('   ' + event[0] + '  ' + event[1])
-        print('\n')
+    events = set()
+    for enzyme in data:
+        for event in data[enzyme]:
+            events.add(event[0])
+    for event in events:
+        print(event)
