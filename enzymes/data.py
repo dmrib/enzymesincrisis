@@ -174,7 +174,7 @@ def create_d3_dataset():
             if event_number == (len(data[enzyme])-1):
                 end = '2017-01-01'
             else:
-                end = data[enzyme][event_number+1][1]
+                end = data[enzyme][event_number+1][1] + '-01-01'
             timestamp = [start, event_class, end]
             datum["data"].append(timestamp)
 
