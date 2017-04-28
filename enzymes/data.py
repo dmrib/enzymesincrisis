@@ -159,15 +159,15 @@ def create_d3_dataset():
 
         for event_number, event in enumerate(events):
             event_class = event[0] + ' ' + event[1]
-            if 'created' or 'proposed' or 'incorporated' in event[0]:
+            if event[0]=='created' or event[0]=='proposed' or event[0]=='incorporated' :
                 datum["categories"][event_class] = {"color": "bazonga"}
-            elif 'deleted' in event[0]:
-                datum["categories"][event_class] = {'color', 'red'}
-            elif 'modified' in event[0]:
+            elif event[0]=='deleted':
+                datum["categories"][event_class] = {'color': 'red'}
+            elif event[0]=='modified':
                 datum["categories"][event_class] = {"color": colors[event_number]}
-            elif 'reinstated' in event[0]:
+            elif event[0]=='reinstated':
                 datum["categories"][event_class] = {"color": colors[event_number-2]}
-            elif 'transfered' in event[0]:
+            elif event[0]=='transfered':
                 datum["categories"][event_class] = {"color": colors[event_number]}
 
             start = event[1] + '-01-01'
