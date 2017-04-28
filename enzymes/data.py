@@ -5,6 +5,7 @@ import os
 import collections
 import json
 
+colors = ('cyan', 'yellow', 'pink', 'purple', 'black', 'blue', 'orange', 'red')
 
 def create_pages_list():
     ''' Creates a list containing all pages paths excluding indexes.
@@ -147,21 +148,21 @@ def create_d3_dataset():
 
     data = load_events()
     dataset = []
-    colors = ['green', 'yellow', 'pink', 'purple', 'black', 'blue', 'orange', 'red']
-
-    for enzyme in data:
+    ic = []
+    for enzyme in data.keys():
         datum = {}
         datum["measure"] = enzyme
         datum["categories"] = {}
         datum["data"] = []
+        events = data[enzyme]
+        ic.append(enzyme)
 
-        #Create categories
-        for event_number, event in enumerate(data[enzyme]):
+        for event_number, event in enumerate(events):
             event_class = event[0] + ' ' + event[1]
             if 'created' or 'proposed' or 'incorporated' in event[0]:
-                datum["categories"][event_class] = {"color": colors[0]}
+                datum["categories"][event_class] = {"color": "bazonga"}
             elif 'deleted' in event[0]:
-                datum["categories"][event_class] = {"color": colors[-1]}
+                datum["categories"][event_class] = {'color', 'red'}
             elif 'modified' in event[0]:
                 datum["categories"][event_class] = {"color": colors[event_number]}
             elif 'reinstated' in event[0]:
@@ -177,7 +178,7 @@ def create_d3_dataset():
             timestamp = [start, event_class, end]
             datum["data"].append(timestamp)
 
-            dataset.append(datum)
+        dataset.append(datum)
 
     with open('static/dataset.json', mode='w') as json_file:
         json_file.write(json.dumps(dataset, indent=4))
