@@ -448,7 +448,7 @@ function visavailChart() {
             .append('text')
             .attr('x', paddingLeft)
             .attr('y', paddingTopHeading)
-            .text('Name changes over time')
+            .text('EC Number through time')
             .attr('class', 'heading');
       }
 
