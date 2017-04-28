@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup
 import collections
 import glob2
 import os
-
+import collections
+import json
 
 
 def create_pages_list():
@@ -119,7 +120,7 @@ def load_events():
     Args:
         None.
     Returns:
-        entries (dict): Dictionary with enzyme name as key and tuple of
+        entries (dict): Ordered Dictionary with enzyme name as key and tuple of
                         events[0]/year[1] as value.
     '''
 
