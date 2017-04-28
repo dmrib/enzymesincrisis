@@ -136,13 +136,52 @@ def load_events():
 
     return entries
 
+def create_d3_dataset():
+    ''' Create json input file for d3 graph rendering.
+
+    Args:
+        None.
+    Returns:
+        dataset (json): Json file for d3.
+    '''
+
+    data = load_events()
+    dataset = []
+    colors = ['green', 'yellow', 'pink', 'purple', 'black', 'blue', 'orange', 'red']
+
+    for enzyme in data:
+        datum = {}
+        datum["measure"] = enzyme
+        datum["categories"] = {}
+        datum["data"] = []
+
+        #Create categories
+        for event_number, event in enumerate(data[enzyme]):
+            event_class = event[0] + ' ' + event[1]
+            if 'created' or 'proposed' or 'incorporated' in event[0]:
+                datum["categories"][event_class] = {"color": colors[0]}
+            elif 'deleted' in event[0]:
+                datum["categories"][event_class] = {"color": colors[-1]}
+            elif 'modified' in event[0]:
+                datum["categories"][event_class] = {"color": colors[event_number]}
+            elif 'reinstated' in event[0]:
+                datum["categories"][event_class] = {"color": colors[event_number-2]}
+            elif 'transfered' in event[0]:
+                datum["categories"][event_class] = {"color": colors[event_number]}
+
+            start = event[1] + '-01-01'
+            if event_number == (len(data[enzyme])-1):
+                end = '2017-01-01'
+            else:
+                end = data[enzyme][event_number+1][1]
+            timestamp = [start, event_class, end]
+            datum["data"].append(timestamp)
+
+            dataset.append(datum)
+
+    with open('static/dataset.json', mode='w') as json_file:
+        json_file.write(json.dumps(dataset, indent=4))
 
 
 if __name__ == '__main__':
-    data = load_events()
-    events = set()
-    for enzyme in data:
-        for event in data[enzyme]:
-            events.add(event[0])
-    for event in events:
-        print(event)
+    create_d3_dataset()
