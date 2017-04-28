@@ -448,7 +448,7 @@ function visavailChart() {
             .append('text')
             .attr('x', paddingLeft)
             .attr('y', paddingTopHeading)
-            .text('Data Availability Plot')
+            .text('Name changes over time')
             .attr('class', 'heading');
       }
 
