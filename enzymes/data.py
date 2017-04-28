@@ -148,37 +148,38 @@ def create_d3_dataset():
 
     data = load_events()
     dataset = []
-    ic = []
+    ics = set()
     for enzyme in data.keys():
-        datum = {}
-        datum["measure"] = enzyme
-        datum["categories"] = {}
-        datum["data"] = []
-        events = data[enzyme]
-        ic.append(enzyme)
+        if enzyme not in ics:
+            datum = {}
+            datum["measure"] = enzyme
+            datum["categories"] = {}
+            datum["data"] = []
+            events = data[enzyme]
 
-        for event_number, event in enumerate(events):
-            event_class = event[0] + ' ' + event[1]
-            if event[0]=='created' or event[0]=='proposed' or event[0]=='incorporated' :
-                datum["categories"][event_class] = {"color": "bazonga"}
-            elif event[0]=='deleted':
-                datum["categories"][event_class] = {'color': 'red'}
-            elif event[0]=='modified':
-                datum["categories"][event_class] = {"color": colors[event_number]}
-            elif event[0]=='reinstated':
-                datum["categories"][event_class] = {"color": colors[event_number-2]}
-            elif event[0]=='transfered':
-                datum["categories"][event_class] = {"color": colors[event_number]}
 
-            start = event[1] + '-01-01'
-            if event_number == (len(data[enzyme])-1):
-                end = '2017-01-01'
-            else:
-                end = data[enzyme][event_number+1][1] + '-01-01'
-            timestamp = [start, event_class, end]
-            datum["data"].append(timestamp)
+            for event_number, event in enumerate(events):
+                event_class = event[0] + ' ' + event[1]
+                if event[0]=='created' or event[0]=='proposed' or event[0]=='incorporated' :
+                    datum["categories"][event_class] = {"color": "green"}
+                elif event[0]=='deleted':
+                    datum["categories"][event_class] = {'color': 'red'}
+                elif event[0]=='modified':
+                    datum["categories"][event_class] = {"color": colors[event_number]}
+                elif event[0]=='reinstated':
+                    datum["categories"][event_class] = {"color": colors[event_number-2]}
+                elif event[0]=='transfered':
+                    datum["categories"][event_class] = {"color": colors[event_number]}
 
-        dataset.append(datum)
+                start = event[1] + '-01-01'
+                if event_number == (len(data[enzyme])-1):
+                    end = '2017-01-01'
+                else:
+                    end = data[enzyme][event_number+1][1] + '-01-01'
+                timestamp = [start, event_class, end]
+                datum["data"].append(timestamp)
+
+            dataset.append(datum)
 
     with open('static/dataset.json', mode='w') as json_file:
         json_file.write(json.dumps(dataset, indent=4))
