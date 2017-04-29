@@ -15,7 +15,6 @@ def create_pages_list():
     Returns:
         List of pages paths.
     '''
-
     pages_paths = []
     all_pages = glob2.glob('../data/www.chem.qmul.ac.uk/iubmb/enzyme/**/'
                            '*.html')
@@ -33,7 +32,6 @@ def scrape_pages():
     Returns:
         List of tuples pairing protein name(0) and history(1).
     '''
-
     data = []
     pages = create_pages_list()
     for page in pages:
@@ -48,7 +46,6 @@ def scrape_page(path):
     Returns:
         Tuple containing the enzyme name(0) and history(1).
     '''
-
     soup = load_page(path)
     name = soup.find_all('title')[0].get_text()
     centered = soup.find_all('center')[1].get_text()
@@ -63,7 +60,6 @@ def load_page(path):
     Returns:
         A BeautifulSoup object.
     '''
-
     with open(path) as file:
         return BeautifulSoup(file, 'html.parser')
 
@@ -75,7 +71,6 @@ def create_parsed_data_file(data):
     Returns:
         None.
     '''
-
     with open('../data/parsed_data.csv', mode='w', encoding='utf-8') as file:
         for data_point in data:
             file.write(data_point[0] + ', ' + data_point[1] + '\n')
@@ -88,7 +83,6 @@ def load_from_parsed():
     Returns:
         List of tuples pairing protein name(0) and history(1).
     '''
-
     with open('../data/parsed_data.csv', mode='r', encoding='utf-8') as source:
         data = []
         for line in source:
@@ -104,7 +98,6 @@ def create_events_file(dataset):
     Returns:
         None.
     '''
-
     with open('../data/events.csv', mode='w', encoding='utf-8') as events_file:
         for datum in dataset:
             history = datum[1].split(' ')
@@ -124,7 +117,6 @@ def load_events():
         entries (dict): Ordered Dictionary with enzyme name as key and tuple of
                         events[0]/year[1] as value.
     '''
-
     entries = collections.OrderedDict()
     with open('../data/events.csv', mode='r', encoding='utf-8') as events_file:
         for entry in events_file:
@@ -141,11 +133,10 @@ def create_d3_dataset(query=''):
     ''' Create json input file for d3 graph rendering.
 
     Args:
-        None.
+        query (str): Pattern for enzyme name.
     Returns:
         dataset (json): Json file for d3.
     '''
-
     events = load_events()
     data = filter_data(events, query)
     dataset = []
@@ -184,6 +175,15 @@ def create_d3_dataset(query=''):
     return json.dumps(dataset)
 
 def filter_data(events, query):
+    ''' Create new events dictionary containg only enzymes that match the
+        query pattern.
+
+        Args:
+            events (dict): Original events dictionary.
+            query (str): Pattern for the enzyme name.
+        Returns:
+            data (dict): Filtered events dictionary.
+    '''
     data = collections.OrderedDict()
     if query == '~ ~ ~':
         return events
