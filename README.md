@@ -14,7 +14,7 @@ Our project uses the following open source projects:
 
 * [Visavail](https://github.com/flrs/visavail)
 * [Flask](http://flask.pocoo.org/)
-# [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/)
+* [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/)
 * [glob2](https://github.com/miracle2k/python-glob2)
 
 We deeply thank all you guys making Open Source happen.
