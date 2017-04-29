@@ -137,7 +137,7 @@ def load_events():
 
     return entries
 
-def create_d3_dataset():
+def create_d3_dataset(query=''):
     ''' Create json input file for d3 graph rendering.
 
     Args:
@@ -146,7 +146,8 @@ def create_d3_dataset():
         dataset (json): Json file for d3.
     '''
 
-    data = load_events()
+    events = load_events()
+    data = filter_data(events, query)
     dataset = []
     ics = set()
     for enzyme in data.keys():
@@ -156,7 +157,6 @@ def create_d3_dataset():
             datum["categories"] = {}
             datum["data"] = []
             events = data[enzyme]
-
 
             for event_number, event in enumerate(events):
                 event_class = event[0] + ' ' + event[1]
@@ -181,9 +181,13 @@ def create_d3_dataset():
 
             dataset.append(datum)
 
-    with open('static/dataset.json', mode='w') as json_file:
-        json_file.write(json.dumps(dataset, indent=4))
+    return json.dumps(dataset)
 
-
-if __name__ == '__main__':
-    create_d3_dataset()
+def filter_data(events, query):
+    data = collections.OrderedDict()
+    if query == '~ ~ ~':
+        return events
+    for event in events:
+        if event.startswith(query):
+            data[event] = events[event]
+    return data
